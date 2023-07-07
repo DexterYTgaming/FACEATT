@@ -1,5 +1,6 @@
 import cv2
-cam=cv2.VideoCapture(0)
+
+cam = cv2.VideoCapture(0)
 
 cv2.namedWindow("test")
 
@@ -17,7 +18,7 @@ while True:
         print("Escape hit, closing...")
         break
     elif k%256 == 32:
-        img_name = "opencv_frame_{}.png".format(img_counter)
+        img_name = "Student_image_{}.jpg".format(img_counter)
         cv2.imwrite('Training_images/'+img_name, frame)
         print("{} written!".format(img_name))
         img_counter += 1

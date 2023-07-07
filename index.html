@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="./styles.css">
+    <title>FaceAtt</title>
+</head>
+
+<body>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="login-box">
+                        <h2>Enter Details</h2>
+                        <form>
+                            <div id="enterDetails">
+                                <div class="user-box">
+                                    <input id="enterID" type="text" name="" required=""> 
+                                    <label>ID</label>
+                                </div>
+                                <div class="user-box">
+                                    <input id="enterName" type="text" name="" required=""> 
+                                    <label>Name</label>
+                                </div>
+                                <div class="user-box">
+                                    <input id="enterCourse" type="text" name="" required="">
+                                    <label>Course</label>
+                                </div>
+                                <div class="user-box">
+                                    <input id="enterBranch" type="text" name="" required="">    
+                                    <label>Branch</label>    
+                                </div>
+                                <div class="user-box">
+                                    <input id="enterBatch" type="text" name="" required="">
+                                    <label>Batch</label>
+                                </div>
+                                <div class="user-box">
+                                    <input id="enterSubject" type="text" name="" required="">
+                                    <label>Subject</label>
+                                </div>
+                                <div class="user-box">
+                                    <input id="enterTotalAttendance" type="number" name="" required="">
+                                    <label>Total Attendance</label>
+                                </div>
+                                <div class="user-box">
+                                    <input id="enterlastAttendance" type="datetime" name=""><br><br>
+                                    <label>Last Attendance</label>
+                                </div>
+                        
+
+                            <a href="#">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <button id="insert">INSERT</button>
+                            </a>                
+                            <a href="#">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <button id="update">UPDATE</button>
+                                
+                            </a>
+                            <a href="#">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <button id="remove">REMOVE</button>
+                                
+                            </a>
+                        </div>
+                    </form>
+                            
+                        
+                      
+                    </div>
+                </div>
+
+                <div class="col-6 col-sm-3">
+                    <div class="login-box">
+                        <form>
+                            <div id="findDetails" >  
+                            <h2>Find by ID</h2>  
+                            <div class="user-box">
+                                <input id="findID" type="text" name="" required="">
+                                <label>ID</label>
+                            </div>
+                            <a href="#">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <button id="find">FIND</button>
+                                
+                            </a>
+                            <div class="user-space"></div>
+                            <div class="user-box">
+                                <h3 id="findName" type="text"></h3>
+                            </div>
+                            <div class="user-box">
+                                <h3 id="findCourse" type="text"></h3>
+                            </div>
+                            <div class="user-box">
+                                <h3 id="findBranch" type="text"></h3>
+                            </div>
+                            <div class="user-box">
+                                <h3 id="findBatch" type="text"></h3>
+                            </div>
+                            <div class="user-box">
+                                <h3 id="findSubject" type="text"></h3>
+                            </div>
+                            <div class="user-box">
+                                <h3 id="findTotalAttendance" type="number"></h3>
+                            </div>
+                            <div class="user-box">
+                                <h3 id="findlastAttendance" type="text"></h3>
+                            </div>
+                        </form>
+                       
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+ 
+
+    
+    
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/vendors/jquery.min.js"></script>
+  <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
+
+
+  
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDFmnOO_Us_a36Jpk3ahZO8NwiB3b98Bm4",
+      authDomain: "faceatt-3f797.firebaseapp.com",
+      databaseURL: "https://faceatt-3f797-default-rtdb.firebaseio.com",
+      projectId: "faceatt-3f797",
+      storageBucket: "faceatt-3f797.appspot.com",
+      messagingSenderId: "531180571007",
+      appId: "1:531180571007:web:471c76c7bda532d01cf24a",
+      measurementId: "G-JRYKFYJJLV"
+    };
+  
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        import {getDatabase, ref, get, set, child, update, remove}
+        from "https://www.gstatic.com/firebasejs/9.21.0/firebase-database.js";
+        // (the one where you imported "initializeApp" from),
+        //but change "firebase-app" to "firebase-database"
+        
+
+        const db = getDatabase();
+
+        var enterID = document.querySelector("#enterID");
+        var enterName = document.querySelector("#enterName");
+        var enterCourse = document.querySelector("#enterCourse");
+        var enterBranch = document.querySelector("#enterBranch");
+        var enterBatch = document.querySelector("#enterBatch");
+        var enterSubject = document.querySelector("#enterSubject");
+        var enterlastAttendance = document.querySelector("#enterlastAttendance");
+        var enterTotalAttendance = document.querySelector("#enterTotalAttendance");
+        //find variables
+        var findID = document.querySelector("#findID");
+        var findName = document.querySelector("#findName");
+        var findCourse = document.querySelector("#findCourse");
+        var findBranch = document.querySelector("#findBranch");
+        var findBatch = document.querySelector("#findBatch");
+        var findSubject = document.querySelector("#findSubject");
+        var findlastAttendance = document.querySelector("#findlastAttendance");
+        var findTotalAttendance = document.querySelector("#findTotalAttendance");
+      
+
+        var insertBtn = document.querySelector("#insert");
+        var updateBtn = document.querySelector("#update");
+        var removeBtn = document.querySelector("#remove");
+        var findBtn = document.querySelector("#find");
+
+        function InsertData() {
+            set(ref(db, "Students/"+ enterID.value),{
+                Name: enterName.value,
+                ID: enterID.value,
+                Course: enterCourse.value,
+                Branch: enterBranch.value,
+                Batch: enterBatch.value,
+                Subject: enterSubject.value,
+                Total_attendance: parseInt(enterTotalAttendance.value),
+                last_attendance_time: enterlastAttendance.value
+            })
+            .then(()=>{
+                alert("Data added successfully");
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+        }
+
+        function FindData() {
+            const dbref = ref(db);
+
+            get(child(dbref, "Students/" + findID.value))
+            .then((snapshot)=>{
+                if(snapshot.exists()){
+                    findName.innerHTML = "Name: " + snapshot.val().Name;
+                    findCourse.innerHTML = "Course: " + snapshot.val().Course;
+                    findBranch.innerHTML = "Branch: " + snapshot.val().Branch;
+                    findBatch.innerHTML = "Batch: " + snapshot.val().Batch;
+                    findSubject.innerHTML = "Subject: " + snapshot.val().Subject;
+                   findlastAttendance.innerHTML = "LastAttendance: " + snapshot.val().last_attendance_time;
+                   findTotalAttendance.innerHTML = "TotalAttendance: " + snapshot.val().Total_attendance;
+                } else {
+                    alert("No data found");
+                }
+            })
+            .catch((error)=>{
+                alert(error)
+            })
+            
+        }
+        
+        
+
+        function UpdateData(){
+            update(ref(db, "Students/"+ enterID.value),{
+                Name: enterName.value,
+                Course: enterCourse.value,
+                Branch: enterBranch.value,
+                Batch: enterBatch.value,
+                Subject: enterSubject.value,
+                last_attendance_time: enterlastAttendance.value,
+                Total_attendance: enterTotalAttendance.value
+
+
+            })
+            .then(()=>{
+                alert("Data updated successfully");
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+        }
+
+        function RemoveData(){
+            remove(ref(db, "Students/"+ enterID.value))
+            .then(()=>{
+                alert("Data deleted successfully");
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+        }
+
+        insertBtn.addEventListener('click', InsertData);
+        updateBtn.addEventListener('click', UpdateData);
+        removeBtn.addEventListener('click', RemoveData);
+        findBtn.addEventListener('click', FindData);
+
+      </script>
+</body>
+</html>

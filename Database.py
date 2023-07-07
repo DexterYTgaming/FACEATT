@@ -4,26 +4,19 @@ from firebase_admin import db
 
 cred = credentials.Certificate("faceatt.json")
 firebase_admin.initialize_app(cred,{
-    'databaseURL': "https://faceatt-3f797-default-rtdb.firebaseio.com/"
+    'databaseURL': "https://faceatt-ea0e3-default-rtdb.firebaseio.com/"
 })
 
 ref=db.reference('Students')
 data={
-    "20103191": 
-        {
-            "Name": "Bhavya Joshi",
-            "Course": "B.Tech",
-            "Branch": "CSE",
-            "Batch": "B7",
-            "Total_attendance": 10,
-            "last_attendance_time":"2023-05-04  13:50:00" 
-        },
+    
         "20103188": 
         {
             "Name": "Rushil Gupta",
             "Course": "B.Tech",
             "Branch": "CSE",
             "Batch": "B7",
+            "Subject": "Software Engineering",
             "Total_attendance": 9,
             "last_attendance_time":"2023-05-04  13:50:00" 
         },

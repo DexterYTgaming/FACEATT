@@ -3,7 +3,6 @@ import numpy as np
 import face_recognition
 import os
 from datetime import datetime
-import time
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
@@ -22,10 +21,11 @@ images = []
 classNames = []
 counter=0
 id=-1
+x=0
 # importing student images
 pathlist=os.listdir(folderpath)
 print(pathlist)
-path1 = 'D:\FaceAttendance-main\Training_images'
+path1 = 'D:\minor\FaceAttendance-main\Training_images'
 
 for path in pathlist:
     images.append(cv2.imread(os.path.join(folderpath,path)))
@@ -46,8 +46,6 @@ for cl in myList:
 print(classNames)
 
 
-
-
 def findEncodings(images):
     encodeList = []
 
@@ -61,14 +59,15 @@ def findEncodings(images):
 
 
 def markAttendance(Enrol):
-    with open('D:\FaceAttendance-main\Attendance.csv', 'r+') as f:
+    with open('D:\minor\FaceAttendance-main\Attendance.csv', 'r+') as f:
         myDataList = f.readlines()
         nameList = []
         for line in myDataList:
             entry = line.split(',')
             nameList.append(entry[0])
-            if name not in nameList:
-                now = datetime.now()
+            if Enrol not in nameList:
+                x = datetime.now()
+                print(x)
                 f.writelines(f'\n{Enrol}')
                 break
             if Enrol in nameList:
@@ -92,19 +91,20 @@ if __name__ == '__main__':
             matches = face_recognition.compare_faces(encodeListKnown, encodeFace)
             faceDis = face_recognition.face_distance(encodeListKnown, encodeFace)
             matchIndex = np.argmin(faceDis)
+            # print(matchIndex)
 
             if matches[matchIndex]:
-                name = classNames[matchIndex].upper()
+                Enrol = classNames[matchIndex].upper()
                 y1, x2, y2, x1 = faceLoc
                 y1, x2, y2, x1 = y1 * 4, x2 * 4, y2 * 4, x1 * 4
                 cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 0), 2)
                 cv2.rectangle(img, (x1, y2 - 35), (x2, y2), (255, 0, 0), cv2.FILLED)
-                cv2.putText(img, name, (x1 + 6, y2 - 6), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+                cv2.putText(img, Enrol, (x1 + 6, y2 - 6), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
                 id=classNames[matchIndex]#id is name 
                 if counter==0:
                     counter=1
+                    
             if counter!=0:
-                
                 if counter==1:
                     #get the data
                     studentInfo=db.reference(f'Students/{id}').get()
@@ -113,23 +113,27 @@ if __name__ == '__main__':
                     blob=bucket.get_blob(f'Training_images/{id}.jpg')
                     array= np.frombuffer(blob.download_as_string(),np.uint8)
                     imgStudent = cv2.imdecode(array,cv2.COLOR_BGRA2BGR)
-                    #update the database
+                    
+                        #update the database
+                    datetimeObject = datetime.strptime(studentInfo['last_attendance_time'],"%Y-%m-%d %H:%M:%S")
+                    secondsElapsed = (datetime.now()-datetimeObject).total_seconds()
+                    print(secondsElapsed)
                     ref=db.reference(f'Students/{id}')
                     studentInfo['Total_attendance']+=1
                     ref.child('Total_attendance').set(studentInfo['Total_attendance'])
-                    
+                    ref.child('last_attendance_time').set(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
                     counter+=1
                     
-                nameFile = open('D:\FaceAttendance-main\Attendance.csv', 'r+')
+                nameFile = open('D:\minor\FaceAttendance-main\Attendance.csv', 'r+')
                 nameList = nameFile.readlines()
                 for line in nameList:
                     entry = line.split(',')
-                    if name in entry:
+                    if Enrol in entry:
                         print('already marked')
-                        time.sleep(12)
                         break
                 else:
-                    markAttendance(name)
+                    markAttendance(Enrol)
+                    counter=1
                     break
 
         # exit the program if the user presses 'q'
